@@ -1,0 +1,11 @@
+tensorflow 
+numpy
+pandas
+random
+IPython
+music21
+matplotlib
+seaborn
+sys
+collections
+sklearn
