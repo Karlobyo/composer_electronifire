@@ -1,0 +1,8 @@
+tensorflow 
+numpy
+pandas
+IPython
+music21
+matplotlib
+seaborn
+sklearn
