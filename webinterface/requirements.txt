@@ -1,6 +1,7 @@
 Streamlit
-tensorflow
+#tensorflow
 pandas
 numpy
 Ipython
 music21
+protobuf == 3.20
