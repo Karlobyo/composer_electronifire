@@ -1,0 +1,6 @@
+Streamlit
+tensorflow
+pandas
+numpy
+Ipython
+music21
