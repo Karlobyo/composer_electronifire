@@ -6,3 +6,4 @@ music21
 matplotlib
 seaborn
 sklearn
+pretty_midi
