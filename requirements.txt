@@ -1,6 +1,9 @@
 numpy
 pandas
 colorama
+#pickle
+#glob
+#time
 ipdb
 ipykernel
 scikit-learn
