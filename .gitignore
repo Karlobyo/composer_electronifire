@@ -3,3 +3,4 @@ raw_data
 .ipynb_checkpoints
 notebooks
 .python-version
+.envrc
