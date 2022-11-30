@@ -48,4 +48,3 @@ def clean_data(notes):
             notes.remove(element)
 
     return notes
-
