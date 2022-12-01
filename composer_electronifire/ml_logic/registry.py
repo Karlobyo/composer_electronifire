@@ -1,7 +1,7 @@
 import glob
 import os
 import time
-import pickle
+import json
 from colorama import Fore, Style
 from tensorflow.keras import Model, models
 from composer_electronifire.ml_logic.params import LOCAL_REGISTRY_PATH
@@ -16,16 +16,24 @@ def save_model(model: Model = None,
     print(Fore.BLUE + "\nSave model to local disk..." + Style.RESET_ALL)
     # save params
     if params is not None:
-        params_path = os.path.join(LOCAL_REGISTRY_PATH, "params", timestamp + ".pickle")
+        params_path = os.path.join(LOCAL_REGISTRY_PATH, "params", timestamp + ".txt")
         print(f"- params path: {params_path}")
+        try:
+            os.makedirs(os.path.join(LOCAL_REGISTRY_PATH, "metrics"))
+        except FileExistsError:
+            pass
         with open(params_path, "wb") as file:
-            pickle.dump(params, file)
+            json.dump(params, file)
     # save metrics
     if metrics is not None:
-        metrics_path = os.path.join(LOCAL_REGISTRY_PATH, "metrics", timestamp + ".pickle")
+        metrics_path = os.path.join(LOCAL_REGISTRY_PATH, "metrics", timestamp + ".txt")
         print(f"- metrics path: {metrics_path}")
-        with open(metrics_path, "wb") as file:
-            pickle.dump(metrics, file)
+        try:
+            os.makedirs(os.path.join(LOCAL_REGISTRY_PATH, "metrics"))
+        except FileExistsError:
+            pass
+        with open(metrics_path, "w") as file:
+            json.dump(metrics, file)
     # save model
     if model is not None:
         model_path = os.path.join(LOCAL_REGISTRY_PATH, "models", timestamp)

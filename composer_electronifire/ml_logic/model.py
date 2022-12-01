@@ -37,7 +37,7 @@ def train_model(model: Model,
     #Training the Model
     es = EarlyStopping(patience=patience,
                        restore_best_weights=True,
-                       verbose=0)
+                       verbose=1)
     history = model.fit(X, y,
                         batch_size=batch_size, epochs=150,
                         verbose=0, callbacks=es,

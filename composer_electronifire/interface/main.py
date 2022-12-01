@@ -9,7 +9,10 @@ from composer_electronifire.data_sources.local import get_local_data
 import numpy as np
 import pandas as pd
 
-if __name__ == '__main__':
+def run_model_training():
+
+###### For datasource local!
+
     if DATA_SOURCE == "local":
         # Get X
         X_path = f"{LOCAL_DATA_PATH}/{FEATURES_NAME}.csv"
@@ -33,12 +36,18 @@ if __name__ == '__main__':
                                      X=X,
                                      y=y,
                                      )
-
+        # Turn history into dict
+        metrics = dict(accuracy=np.max(history.history['accuracy']),
+                       val_accuracy=np.max(history.history['val_accuracy'])
+                       )
+        print(metrics)
         # Save model
         save_model(model=model,
                    params=None,
-                   metrics=None
+                   metrics=metrics
                    )
+
+##### For datasource bigquery!
 
     if DATA_SOURCE == "bigquery":
         # Get X
@@ -64,8 +73,17 @@ if __name__ == '__main__':
                                      y=y,
                                      )
 
+        # Turn history into dict
+        metrics = dict(accuracy=np.max(history.history['accuracy']),
+                       val_accuracy=np.max(history.history['val_accuracy'])
+                       )
+
         # Save model
         save_model(model=model,
                    params=None,
-                   metrics=None
+                   metrics=metrics
                    )
+
+
+if __name__ == '__main__':
+    run_model_training()
