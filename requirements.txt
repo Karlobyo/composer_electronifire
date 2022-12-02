@@ -1,3 +1,4 @@
+#model development
 matplotlib.pyplot
 os
 pretty_midi
@@ -20,3 +21,23 @@ tensorflow==2.10.0; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
 google-cloud-bigquery<3.0.0
 google-cloud-storage
 pyarrow
+
+#web interface
+streamlit ==1.9.0
+protobuf == 3.19.6
+Ipython
+music21
+protobuf
+beautifulsoup4
+mido
+requests
+scipy
+soundfile
+requires.io
+wavfile
+#pyfluidsynth
+#fluidsynth
+#midi2audio
+#pygame
+uvicorn
+fastapi
