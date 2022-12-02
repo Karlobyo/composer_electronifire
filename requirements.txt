@@ -1,10 +1,7 @@
-tensorflow 
+tensorflow
 numpy
 pandas
-IPython
-music21
-matplotlib
-seaborn
-sklearn
+matplotlib.pyplot
+os
 pretty_midi
 collections

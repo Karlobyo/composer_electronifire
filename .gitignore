@@ -1,6 +1,3 @@
-raw_data
 .env
-.ipynb_checkpoints
-notebooks
 .python-version
 .envrc
