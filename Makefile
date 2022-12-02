@@ -6,12 +6,12 @@ reinstall_package:
 
 upload_data:
 	gcloud config set project ${PROJECT}
-	bq mk train_data
-	bq load --autodetect --source_format CSV train_data.X ./preprocessed_data/X.csv
-	bq load --autodetect --source_format CSV train_data.y ./preprocessed_data/y.csv
+	bq mk ${DATASET_NAME}
+	bq load --autodetect --source_format CSV ${DATASET_NAME}.${FEATURES_NAME} ${LOCAL_DATA_PATH}/${FEATURES_NAME}.csv
+	bq load --autodetect --source_format CSV ${DATASET_NAME}.${TARGET_NAME} ${LOCAL_DATA_PATH}/${TARGET_NAME}.csv
 
 run_com_el_train:
-	python -c 'from taxifare.interface.main import composer_electronifire.interface.main import run_com_el_train; run_com_el_train()
+	python -c 'from composer_electronifire.interface.main import run_model_training; run_model_training()'
 
 start_instance:
 	gcloud compute instances start ${INSTANCE}
