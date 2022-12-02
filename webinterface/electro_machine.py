@@ -2,6 +2,7 @@ import pygame
 from pygame import mixer
 pygame.init()
 
+
 # Set the sizes of the machine
 
 WIDTH = 1400
@@ -56,12 +57,12 @@ crash = mixer.Sound('sounds/kit2/crash.wav')
 clap = mixer.Sound('sounds/kit2/clap.wav')
 tom = mixer.Sound("sounds/kit2/tom.wav")
 '''
-hi_hat = mixer.Sound('sounds/hi_hat.wav')
-snare = mixer.Sound('sounds/snare.wav')
-kick = mixer.Sound('sounds/kick.wav')
-crash = mixer.Sound('sounds/crash.wav')
-clap = mixer.Sound('sounds/clap.wav')
-tom = mixer.Sound("sounds/tom.wav")
+hi_hat = mixer.Sound('sounds/sounds_hi_hat.wav')
+snare = mixer.Sound('sounds/sounds_snare.wav')
+kick = mixer.Sound('sounds/sounds_kick.wav')
+crash = mixer.Sound('sounds/sounds_crash.wav')
+clap = mixer.Sound('sounds/sounds_clap.wav')
+tom = mixer.Sound("sounds/sounds_tom.wav")
 # Setting the grid and the instruments
 
 def draw_grid(clicks, beat, actives):
