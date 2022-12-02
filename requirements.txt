@@ -1,4 +1,28 @@
+streamlit ==1.9.0
+protobuf == 3.19.6
+tensorflow-macos==2.10.0; sys_platform == 'darwin' and 'ARM' in platform_version
 pandas
-sklearn
 numpy
-tensorflow
+Ipython
+music21
+protobuf
+beautifulsoup4
+mido
+pretty-midi
+requests
+scipy
+soundfile
+requires.io
+pretty_midi
+wavfile
+mido
+pyfluidsynth
+fluidsynth
+midi2audio
+mido
+pygame
+scikit-learn
+requests
+uvicorn
+fastapi
+fluidsynth
