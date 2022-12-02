@@ -5,11 +5,8 @@ pretty_midi
 collections
 numpy
 pandas
-colorama
-ipdb
-ipykernel
-scikit-learn
-yapf
+numpy
+Ipython
 music21
 
 # Trick to install the version of Tensorflow depending on your processor: darwin == Mac, ARM == M1
