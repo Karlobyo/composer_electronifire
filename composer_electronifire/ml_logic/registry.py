@@ -16,7 +16,7 @@ def save_model(model: Model = None,
     print(Fore.BLUE + "\nSave model to local disk..." + Style.RESET_ALL)
     # save params
     if params is not None:
-        params_path = os.path.join(LOCAL_REGISTRY_PATH, "params", timestamp + ".txt")
+        params_path = os.path.join(LOCAL_REGISTRY_PATH, "params", timestamp + ".json")
         print(f"- params path: {params_path}")
         try:
             os.makedirs(os.path.join(LOCAL_REGISTRY_PATH, "metrics"))
@@ -26,7 +26,7 @@ def save_model(model: Model = None,
             json.dump(params, file)
     # save metrics
     if metrics is not None:
-        metrics_path = os.path.join(LOCAL_REGISTRY_PATH, "metrics", timestamp + ".txt")
+        metrics_path = os.path.join(LOCAL_REGISTRY_PATH, "metrics", timestamp + ".json")
         print(f"- metrics path: {metrics_path}")
         try:
             os.makedirs(os.path.join(LOCAL_REGISTRY_PATH, "metrics"))
