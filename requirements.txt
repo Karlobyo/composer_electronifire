@@ -1,7 +1,4 @@
-matplotlib.pyplot
-os
 pretty_midi
-collections
 numpy
 pandas
 colorama
