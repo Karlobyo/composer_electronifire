@@ -1,9 +1,11 @@
 .env
-
 raw_data
 cloud_results
 local_results
 results
+
+electro_beats.ipynb
+junos
 
 # OS generated files #
 ######################
