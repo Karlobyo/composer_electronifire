@@ -10,7 +10,13 @@ reinstall_package - Uninstalls isnstalled version of composer_electronifire and
 upload_data - Sets gcloud project to .env PROJECT. Creates dataset on google bigquery.
               Uploadst X and y to goolge storrage
 
-run_com_el_train - Run training of the model
+run_com_el_train - Run training of the baseline model
+
+run_mv_preprocess - Run preprocessing of raw data midi files
+
+run_mv_train - Run training of multivariate model on preprocessed data
+
+run_mv_predict - Run prediction for seed
 
 start_instance - Starts instance. Only make from local!
 

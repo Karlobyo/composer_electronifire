@@ -3,12 +3,21 @@ load and validate the environment variables in the `.env`
 """
 import os
 import numpy as np
-#DATASET_SIZE = os.environ.get("DATASET_SIZE")
-#VALIDATION_DATASET_SIZE = os.environ.get("VALIDATION_DATASET_SIZE")
-SEQ_LENGTH = int(os.environ.get("SEQ_LENGTH"))
 
+# Integers
+SEQ_LENGTH = int(os.environ.get("SEQ_LENGTH"))
+BATCH_SIZE = int(os.environ.get("BATCH_SIZE"))
+EPOCHS = int(os.environ.get("EPOCHS"))
+PATIENCE = int(os.environ.get("PATIENCE"))
+NUM_PREDICTIONS = int(os.environ.get("NUM_PREDICTIONS"))
+
+# Paths
 LOCAL_DATA_PATH = os.path.expanduser(os.environ.get("LOCAL_DATA_PATH"))
+LOCAL_MIDI_PATH = os.path.expanduser(os.environ.get("LOCAL_MIDI_PATH"))
 LOCAL_REGISTRY_PATH = os.path.expanduser(os.environ.get("LOCAL_REGISTRY_PATH"))
+
+# Strings
+CALLBACKS = os.environ.get("CALLBACKS")
 PROJECT = os.environ.get("PROJECT")
 DATASET = os.environ.get("DATASET")
 DATA_SOURCE = os.environ.get("DATA_SOURCE")
@@ -16,6 +25,10 @@ PROJECT_NAME = os.environ.get("PROJECT_NAME")
 DATASET_NAME = os.environ.get("DATASET_NAME")
 FEATURES_NAME = os.environ.get("FEATURES_NAME")
 TARGET_NAME = os.environ.get("TARGET_NAME")
+MV_TRAIN_DF = os.environ.get("MV_TRAIN_DF")
+MV_SEED_DF = os.environ.get("MV_SEED_DF")
+MV_VAL_DF = os.environ.get("MV_VAL_DF")
+
 ################## VALIDATIONS #################
 env_valid_options = dict(
    # DATASET_SIZE=["1k", "10k", "100k", "500k", "50M", "new"],

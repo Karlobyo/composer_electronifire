@@ -13,6 +13,15 @@ upload_data:
 run_com_el_train:
 	python -c 'from composer_electronifire.interface.main import run_model_training; run_model_training()'
 
+run_mv_preprocess:
+	python -c 'from composer_electronifire.interface.main import preprocess_mv_datasets; preprocess_mv_datasets()'
+
+run_mv_train:
+	python -c 'from composer_electronifire.interface.main import run_mv_model_training; run_mv_model_training()'
+
+run_mv_predict:
+	python -c 'from composer_electronifire.interface.main import predict_mv_model; predict_mv_model()'
+
 start_instance:
 	gcloud compute instances start ${INSTANCE}
 
