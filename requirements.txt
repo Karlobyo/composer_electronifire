@@ -1,8 +1,4 @@
-#model development
-matplotlib.pyplot
-os
 pretty_midi
-collections
 numpy
 pandas
 numpy
