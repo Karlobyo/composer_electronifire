@@ -67,9 +67,9 @@ def evaluate_model(model: Model,
 
 ### Multivariate model
 
-def instantiate_model(seq_length: int, 
-                      cols: list):
-    """instantiate RNN model"""
+def initialize_mv_model(seq_length: int, 
+                        cols: list):
+    """initialize RNN model"""
 
     input_shape = (seq_length, len(cols))
 
