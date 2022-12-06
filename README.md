@@ -8,7 +8,7 @@ reinstall_package - Uninstalls isnstalled version of composer_electronifire and
                     is installed.
 
 upload_data - Sets gcloud project to .env PROJECT. Creates dataset on google bigquery.
-              Uploadst X and y to goolge storrage
+              Uploadst X and y to goolge storage
 
 run_com_el_train - Run training of the baseline model
 
