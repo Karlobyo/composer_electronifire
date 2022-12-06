@@ -11,6 +11,7 @@ BATCH_SIZE = int(os.environ.get("BATCH_SIZE"))
 EPOCHS = int(os.environ.get("EPOCHS"))
 PATIENCE = int(os.environ.get("PATIENCE"))
 NUM_PREDICTIONS = int(os.environ.get("NUM_PREDICTIONS"))
+SHIFT = int(os.environ.get("SHIFT"))
 
 # Paths
 LOCAL_DATA_PATH = os.path.expanduser(os.environ.get("LOCAL_DATA_PATH"))
@@ -29,9 +30,16 @@ TARGET_NAME = os.environ.get("TARGET_NAME")
 MV_TRAIN_DF = os.environ.get("MV_TRAIN_DF")
 MV_SEED_DF = os.environ.get("MV_SEED_DF")
 MV_VAL_DF = os.environ.get("MV_VAL_DF")
-COLUMNS = os.environ.get("COLUMNS")
-METRICS = os.environ.get("METRICS")
-LOSS = os.environ.get("LOSS")
+
+if os.environ.get("COLUMNS")=='':
+    COLUMNS=['pitch', 'step']
+elif os.environ.get("COLUMNS")=='v':
+    COLUMNS=['pitch', 'step', 'velocity']
+elif os.environ.get("COLUMNS")=='d':
+    COLUMNS=['pitch', 'step', 'duration']
+else:
+    COLUMNS=['pitch', 'step', 'duration', 'velocity']
+
 
 
 ################## VALIDATIONS #################

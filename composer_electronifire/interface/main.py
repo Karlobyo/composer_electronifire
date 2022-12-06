@@ -7,11 +7,13 @@ from composer_electronifire.ml_logic.data import load_stream,\
                                                  notes_to_chords,\
                                                  strongest_note,\
                                                  join_dfs
+                                                 
 from composer_electronifire.ml_logic.preprocessor import note_transformer,\
                                                          data_split,\
                                                          df_to_dataset,\
                                                          create_sequences,\
                                                          create_batches
+                                                         
 from composer_electronifire.ml_logic.model import initialize_model,\
                                                   compile_model,\
                                                   train_model,\
@@ -21,14 +23,18 @@ from composer_electronifire.ml_logic.model import initialize_model,\
                                                   compile_mv_model,\
                                                   train_mv_model,\
                                                   predict_notes
+                                                  
 from composer_electronifire.ml_logic.registry import save_model,\
                                                      load_model,\
                                                      save_midi
+                                                     
 from composer_electronifire.ml_logic.params import BATCH_SIZE,\
                                                    SEQ_LENGTH,\
                                                    EPOCHS,\
                                                    PATIENCE,\
                                                    CALLBACKS,\
+                                                   SHIFT,\
+                                                   COLUMNS,\
                                                    NUM_PREDICTIONS,\
                                                    DATA_SOURCE,\
                                                    LOCAL_DATA_PATH,\
@@ -41,6 +47,7 @@ from composer_electronifire.ml_logic.params import BATCH_SIZE,\
                                                    MV_TRAIN_DF,\
                                                    MV_VAL_DF,\
                                                    MV_SEED_DF
+                                                
 from composer_electronifire.data_sources.big_query import get_bq_data
 from composer_electronifire.data_sources.local import get_local_data
 from colorama import Fore, Style
@@ -107,8 +114,8 @@ def run_model_training(source_type=DATA_SOURCE):
 
 def preprocess_mv_datasets():
     midi_lst = midis_set(datapath=LOCAL_MIDI_PATH)
-    midi_lst = [midi_to_notes(midi=midi) for midi in midi_lst]
-    midi_lst = [strongest_note(df=df) for df in midi_lst]
+    df_lst = [midi_to_notes(midi=midi) for midi in midi_lst]
+    df_lst = [strongest_note(df=df) for df in df_lst]
     df = join_dfs(midi_lst)
     train_df, val_df, seed_df = data_split(df, seq_length=SEQ_LENGTH)
     train_df.to_csv(os.path.join(LOCAL_DATA_PATH,MV_TRAIN_DF)+'.csv')
@@ -118,20 +125,24 @@ def preprocess_mv_datasets():
     return None
 
 def run_mv_model_training():
-    model = initialize_mv_model(seq_length=SEQ_LENGTH)
-    model = compile_mv_model(model)
+    model = initialize_mv_model(seq_length=SEQ_LENGTH, cols=COLUMNS)
+    model = compile_mv_model(model, cols=COLUMNS)
+    
     train_df = pd.read_csv(os.path.join(LOCAL_DATA_PATH,MV_TRAIN_DF)+'.csv')
     val_df = pd.read_csv(os.path.join(LOCAL_DATA_PATH,MV_VAL_DF)+'.csv')
     seed_df = pd.read_csv(os.path.join(LOCAL_DATA_PATH,MV_SEED_DF)+'.csv')
-    train_ds = df_to_dataset(train_df)
-    val_ds = df_to_dataset(val_df)
-    seed_ds = df_to_dataset(seed_df)
-    train_ds = create_sequences(train_ds, seq_length=SEQ_LENGTH)
-    val_ds = create_sequences(val_ds, seq_length=SEQ_LENGTH)
-    seed_ds = create_sequences(seed_ds, seq_length=SEQ_LENGTH)
-    train_ds = create_batches(train_ds, batch_size=BATCH_SIZE)
-    val_ds = create_batches(val_ds, batch_size=BATCH_SIZE)
-    seed_ds = create_batches(seed_ds, batch_size=BATCH_SIZE)
+    
+    train_ds = df_to_dataset(train_df, cols=COLUMNS)
+    val_ds = df_to_dataset(val_df, cols=COLUMNS)
+    seed_ds = df_to_dataset(seed_df, cols=COLUMNS)
+    
+    train_seq = create_sequences(train_ds, seq_length=SEQ_LENGTH, cols=COLUMNS, shift=SHIFT)
+    val_seq = create_sequences(val_ds, seq_length=SEQ_LENGTH, cols=COLUMNS, shift=SHIFT)
+    seed_seq = create_sequences(seed_ds, seq_length=SEQ_LENGTH, cols=COLUMNS, shift=SHIFT)
+    
+    train_ds = create_batches(train_seq, batch_size=BATCH_SIZE)
+    val_ds = create_batches(val_seq, batch_size=BATCH_SIZE)
+    seed_ds = create_batches(seed_seq, batch_size=BATCH_SIZE)
 
     model, history = train_mv_model(model=model,
                                     dataset=train_ds,
@@ -172,7 +183,8 @@ def predict_mv_model(notes_path: str=os.path.join(LOCAL_DATA_PATH,MV_SEED_DF)+'.
     gen_df = predict_notes(notes=notes,
                            model=model,
                            num_predictions=NUM_PREDICTIONS,
-                           seq_length=SEQ_LENGTH
+                           seq_length=SEQ_LENGTH,
+                           cols=COLUMNS
                            )
     gen_midi = notes_to_midi(gen_df)
     save_midi(midi=gen_midi, local_registry_path=LOCAL_REGISTRY_PATH)

@@ -93,27 +93,40 @@ def midi_to_notes(midi) -> pd.DataFrame:
     df = pd.DataFrame({name: np.array(value) for name, value in notes.items()}).sort_values(by=['start'])
     return df
 
-def notes_to_midi(notes: pd.DataFrame) -> pm.PrettyMIDI:
-    """Turns dataframe containing pitch, step, duration and velocity
-    into midi"""
-    midi = pm.PrettyMIDI()
-    instrument = pm.Instrument(program=pm.instrument_name_to_program('Acoustic Grand Piano'))
+def notes_to_midi(notes: pd.DataFrame,
+                  cols: list) -> pm.PrettyMIDI:
 
-    prev_start = 0
-    for i, note in notes.iterrows():
+  p = pm.PrettyMIDI()
+  instrument = pm.Instrument(program=pm.instrument_name_to_program('Acoustic Grand Piano'))
+  
+  prev_start = 0
+  for i, note in notes.iterrows():
+    if 'step' in cols:
         start = float(prev_start + note['step'])
+    else:
+        start = float(prev_start + 0.17)
+        
+    if 'duration' in cols:
+        end = float(start + note['duration'])
+    else:
         end = float(start + 0.27)
-        note = pm.Note(
-            velocity=int(note['velocity']),
-            pitch=int(note['pitch']),
-            start=start,
-            end=end,
-        )
-        instrument.notes.append(note)
-        prev_start = start
+        
+    if 'velocity' in cols:
+        velocity = int(note['velocity'])
+    else:
+        velocity = 57
+    
+    note = pm.Note(
+        velocity=velocity,
+        pitch=int(note['pitch']),
+        start=start,
+        end=end
+    )
+    instrument.notes.append(note)
+    prev_start = start
 
-    midi.instruments.append(instrument)
-    return midi
+  p.instruments.append(instrument)
+  return p
 
 def notes_to_chords(df):
     """group notes played at the same time into chords.
