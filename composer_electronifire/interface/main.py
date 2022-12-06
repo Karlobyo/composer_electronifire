@@ -50,7 +50,6 @@ from composer_electronifire.ml_logic.params import BATCH_SIZE,\
                                                 
 from composer_electronifire.data_sources.big_query import get_bq_data
 from composer_electronifire.data_sources.local import get_local_data
-from colorama import Fore, Style
 
 import pretty_midi as pm
 import numpy as np
