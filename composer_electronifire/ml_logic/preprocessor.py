@@ -4,7 +4,7 @@ from tensorflow.keras.utils import to_categorical
 from tensorflow.data import Dataset, AUTOTUNE, experimental
 
 ### Baseline model
-def note_transformer(note_list, seq_length=40):
+def note_transformer(note_list, seq_length):
   """Function which takes a list of musical notes,
   and returns numpy arrays of X and y where X contains
   encoded sequences of these notes, and y corresponds
@@ -32,56 +32,61 @@ def note_transformer(note_list, seq_length=40):
 
 ### Multivariate model
 
-def data_split(df,
-               train_split=0.7,
+def data_split(df: pd.DataFrame,
+               seq_length: int, 
+               train_split=0.7, 
                val_split=0.2,
-               seed_split=0.1,
-               seq_length=40):
-    """Function which takes a chronologically
-    ordered dataframe, desired sequence length,
-    as well as train, validation, seed split sizes,
-    and returns train, validation and seed datasets.
-    (function ONLY works with input split
-    sizes with one decimal place)"""
+               seed_split=0.1):
+  """Function which takes a chronologically 
+  ordered dataframe, desired sequence length,
+  as well as train, validation, seed split sizes, 
+  and returns train, validation and seed datasets. 
+  (function ONLY works with input split
+  sizes with one decimal place)"""
 
-    num_seq = round(len(df)/(seq_length+1))
-    train_df = pd.DataFrame(columns=df.columns)
-    val_df = pd.DataFrame(columns=df.columns)
-    seed_df = pd.DataFrame(columns=df.columns)
+  num_seq = round(len(df)/(seq_length+1))
+  train_df = pd.DataFrame(columns=df.columns)
+  val_df = pd.DataFrame(columns=df.columns)
+  seed_df = pd.DataFrame(columns=df.columns)
 
-    for i, chunk in enumerate(np.array_split(df, num_seq)):
-        if int(str(i)[-1]) < 10*train_split:
-            train_df = pd.concat([train_df, chunk])
-        elif int(str(i)[-1]) < 10*(train_split+val_split):
-            val_df = pd.concat([val_df, chunk])
-        else:
-            seed_df = pd.concat([seed_df, chunk])
+  for i, chunk in enumerate(np.array_split(df, num_seq)):
+    if int(str(i)[-1]) < 10*train_split:
+      train_df = pd.concat([train_df, chunk])
+    elif int(str(i)[-1]) < 10*(train_split+val_split):
+      val_df = pd.concat([val_df, chunk])
+    else:
+      seed_df = pd.concat([seed_df, chunk])
 
-    train_df = train_df.reset_index().drop(columns='index').astype('float64')
+  train_df = train_df.reset_index().drop(columns='index').astype('float64')
 
-    val_df = val_df.reset_index().drop(columns='index').astype('float64')
+  val_df = val_df.reset_index().drop(columns='index').astype('float64')
 
-    seed_df = seed_df.reset_index().drop(columns='index').astype('float64')
+  seed_df = seed_df.reset_index().drop(columns='index').astype('float64')
 
-    return train_df, val_df, seed_df
+  return train_df, val_df, seed_df
 
-def df_to_dataset(df: pd.DataFrame):
+
+def df_to_dataset(df: pd.DataFrame, 
+                  cols: list):
   """Transforms a dataframe into a Tensorflow dataset"""
-
-  cols=['pitch', 'step', 'velocity']
+  
   dataset = np.stack([df[col] for col in cols], axis=1)
   dataset = Dataset.from_tensor_slices(dataset)
 
   return dataset
 
-def create_sequences(dataset: Dataset,
-                     seq_length: int = 40
-                     ) -> Dataset:
+
+def create_sequences(
+    dataset: Dataset, 
+    seq_length: int,
+    cols: list,
+    shift: int
+) -> Dataset:
   """Returns TF Dataset of sequence and label examples."""
   seq_length = seq_length+1
 
   # Take 1 extra for the labels
-  windows = dataset.window(seq_length, shift=1, stride=1,
+  windows = dataset.window(seq_length, shift=shift, stride=1,
                               drop_remainder=True)
 
   # `flat_map` flattens the" dataset of datasets" into a dataset of tensors
@@ -92,14 +97,14 @@ def create_sequences(dataset: Dataset,
   def split_labels(sequences):
     inputs = sequences[:-1]
     labels_dense = sequences[-1]
-    labels = {key:labels_dense[i] for i,key in enumerate(['pitch', 'step', 'velocity'])}
+    labels = {key:labels_dense[i] for i,key in enumerate(cols)}
 
     return inputs, labels
 
   return sequences.map(split_labels, num_parallel_calls=AUTOTUNE)
 
 def create_batches(sequences,
-                   batch_size: int=128) -> Dataset:
+                   batch_size: int) -> Dataset:
   """Returns batched dataset for more efficient
   data extraction during model training."""
 

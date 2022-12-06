@@ -1,9 +1,4 @@
-.env
 raw_data
-cloud_results
-local_results
-results
-
 # OS generated files #
 ######################
 .DS_Store

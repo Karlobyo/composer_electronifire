@@ -67,27 +67,27 @@ def evaluate_model(model: Model,
 
 ### Multivariate model
 
-def initialize_mv_model(seq_length: int=40) -> Model:
+def instantiate_model(seq_length: int, 
+                      cols: list):
     """instantiate RNN model"""
 
-    input_shape = (seq_length, 3)
+    input_shape = (seq_length, len(cols))
 
-    inputs = Input(input_shape)
+    inputs = tf.keras.Input(input_shape)
     model = LSTM(512, return_sequences=True)(inputs)
 
     model = Dropout(0.1)(model)
-    model = LSTM(256, return_sequences=True)(model)
-    model = Dropout(0.2)(model)
-    model = LSTM(128)(model)
-    model = Dense(64)(model)
+    model = LSTM(256)(model)
     model = Dropout(0.3)(model)
-    outputs = {
-        'pitch': Dense(88, name='pitch', activation='softmax')(model),
-        'step': Dense(1, name='step')(model),
-        'velocity': Dense(1, name='velocity')(model)
-    }
+    model = Dense(64)(model)
+    model = Dropout(0.4)(model)
+    model = Dense(32)(model)
+    model = Dropout(0.5)(model)
+    outputs = {'pitch': Dense(88, name='pitch', activation='softmax')(model)}
+    for col in cols[1:]:
+        outputs[col] = Dense(1, name=col)(model)
 
-    model = Model(inputs, outputs)
+    model = tf.keras.Model(inputs, outputs)
 
     return model
 
@@ -97,37 +97,33 @@ def mse_with_positive_pressure(y_true: Tensor, y_pred: Tensor):
     positive_pressure = 10 * maximum(-y_pred, 0.0)
     return reduce_mean(mse + positive_pressure)
 
-def compile_mv_model(model: Model) -> Model:
+def compile_mv_model(model: Model, 
+                     cols: list) -> Model:
     """Compile model with custom loss function"""
 
-    metrics = {'pitch': 'accuracy',
-               'step': 'mse',
-               'velocity': 'mse'
-               }
+    metrics = {'pitch': 'accuracy'}
 
-    loss = {'pitch': SparseCategoricalCrossentropy(from_logits=True),
-            'step': mse_with_positive_pressure,
-            'velocity': mse_with_positive_pressure
-            }
+    for col in cols[1:]:
+        metrics[col] = 'mse'
 
-    loss_weights = {'pitch': 0.05,
-                    'step': 0.01,
-                    'velocity':0.001
-                    }
+
+    loss = {'pitch': tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)}
+
+    for col in cols[1:]:
+        loss[col] = mse_with_positive_pressure
 
     model.compile(loss=loss,
-                  loss_weights=loss_weights,
                   optimizer='rmsprop',
                   metrics=metrics
                   )
     return model
 
 def train_mv_model(model: Model,
-                   dataset,
-                   validation_data,
-                   epochs=500,
-                   patience=20,
-                   callbacks=None,
+                   dataset: tf.keras.Dataset,
+                   validation_data: tf.keras.Dataset,
+                   epochs: int,
+                   patience: int,
+                   callbacks: str,
                    local_registry_path: str='.'
                    ) -> Tuple[Model, dict]:
     """Fit model with train and validation dataset, """
@@ -154,42 +150,51 @@ def train_mv_model(model: Model,
                         )
     return model, history
 
-def predict_notes(notes: pd.DataFrame,
-                  model: Model,
-                  temperature: float = 1.0,
-                  num_predictions: int=150,
-                  seq_length: int=40) -> pd.DataFrame:
-    """Generates n following notes as a dataframe."""
 
-    input_notes = (np.stack([notes[key] for key in ['pitch',
-                                                    'step',
-                                                    'velocity'
-                                                    ]], axis=1) - np.array([21, 0, 0]))[-seq_length:]
+def adjust_step(step: float):
+  """Turns numerical step into musical 1/1->1/64 step"""
+  
+  timestamps = [2, 1, 0.5, 0.25, 0.125, 0.0625, 0.03125, 0.015625]
+  return min(timestamps, key=lambda x:abs(x-step))
+
+
+def predict_notes(
+    notes: pd.DataFrame, 
+    model: tf.keras.Model,
+    seq_length: int,
+    cols: list, 
+    temperature: float = 1.0, 
+    num_predictions: int=150) -> pd.DataFrame:
+    """Generates n following notes as a dataframe."""
+    
+    array = np.zeros(len(cols))
+    array[0]=21
+    input_notes = (np.stack([notes[key] for key in cols], axis=1) - array)[-seq_length:]
     generated_notes = []
     prev_start = 0
     for _ in range(num_predictions):
-        input_notes = expand_dims(input_notes, 0)
+        input_notes = tf.expand_dims(input_notes, 0)
         predictions = model.predict(input_notes, verbose=0)
         pitch_logits = predictions['pitch']
-        step = predictions['step']
-        velocity = predictions['velocity']
 
         pitch_logits /= temperature
-        pitch = random.categorical(pitch_logits, num_samples=1)
-        pitch = squeeze(pitch, axis=-1)
-        velocity = squeeze(velocity, axis=-1)
-        step = squeeze(step, axis=-1)
+        pitch = tf.random.categorical(pitch_logits, num_samples=1)
+        pitch = tf.squeeze(pitch, axis=-1)
 
-        # `step` and `velocity` values should be non-negative
-        step = maximum(0, step)
-        velocity = maximum(0, velocity)
-        input_note = [np.array(pitch)[0], np.array(step)[0], np.array(velocity)[0]]
+        input_note = [np.array(pitch)[0]]
+        for col in cols[1:]:
+            attr = tf.maximum(0, tf.squeeze(predictions[col], axis=-1))
+            input_note.append(np.array(attr)[0])
+            
         generated_notes.append(input_note)
         input_notes = np.delete(np.squeeze(input_notes, 0), 0, axis=0)
 
         input_notes = np.append(input_notes, np.array(input_note, ndmin=2), axis=0)
 
     generated_notes = pd.DataFrame(
-        generated_notes, columns=['pitch', 'step', 'velocity'])
+      generated_notes, columns=cols)
+    
+    if 'step' in cols:
+        generated_notes['step'] = generated_notes['step'].map(lambda x: adjust_step(x))
 
     return generated_notes
