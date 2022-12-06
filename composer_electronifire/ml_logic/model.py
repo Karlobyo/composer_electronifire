@@ -119,8 +119,8 @@ def compile_mv_model(model: Model,
     return model
 
 def train_mv_model(model: Model,
-                   dataset: tf.keras.Dataset,
-                   validation_data: tf.keras.Dataset,
+                   dataset: tf.data.Dataset,
+                   validation_data: tf.data.Dataset,
                    epochs: int,
                    patience: int,
                    callbacks: str,
