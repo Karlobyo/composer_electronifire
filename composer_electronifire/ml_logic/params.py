@@ -6,6 +6,7 @@ import numpy as np
 
 # Integers
 SEQ_LENGTH = int(os.environ.get("SEQ_LENGTH"))
+SHIFT = int(os.environ.get("SHIFT"))
 BATCH_SIZE = int(os.environ.get("BATCH_SIZE"))
 EPOCHS = int(os.environ.get("EPOCHS"))
 PATIENCE = int(os.environ.get("PATIENCE"))
@@ -28,6 +29,10 @@ TARGET_NAME = os.environ.get("TARGET_NAME")
 MV_TRAIN_DF = os.environ.get("MV_TRAIN_DF")
 MV_SEED_DF = os.environ.get("MV_SEED_DF")
 MV_VAL_DF = os.environ.get("MV_VAL_DF")
+COLUMNS = os.environ.get("COLUMNS")
+METRICS = os.environ.get("METRICS")
+LOSS = os.environ.get("LOSS")
+
 
 ################## VALIDATIONS #################
 env_valid_options = dict(
