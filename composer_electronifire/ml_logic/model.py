@@ -48,7 +48,7 @@ def train_model(model: Model,
     history = model.fit(X, y,
                         batch_size=batch_size, epochs=150,
                         verbose=0, callbacks=es,
-                        validation_split=validation_split
+                        validation_split=validation_split, 
                         )
     return model, history
 
@@ -146,7 +146,8 @@ def train_mv_model(model: Model,
     history = model.fit(dataset,
                         epochs=epochs,
                         callbacks=callbacks,
-                        validation_data=validation_data
+                        validation_data=validation_data,
+                        verbose=2
                         )
     return model, history
 
