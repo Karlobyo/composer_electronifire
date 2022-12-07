@@ -19,6 +19,7 @@ LOCAL_MIDI_PATH = os.path.expanduser(os.environ.get("LOCAL_MIDI_PATH"))
 LOCAL_REGISTRY_PATH = os.path.expanduser(os.environ.get("LOCAL_REGISTRY_PATH"))
 
 # Strings
+COMPOSER = os.environ.get("COMPOSER")
 CALLBACKS = os.environ.get("CALLBACKS")
 PROJECT = os.environ.get("PROJECT")
 DATASET = os.environ.get("DATASET")
