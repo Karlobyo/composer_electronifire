@@ -127,7 +127,7 @@ def train_mv_model(model: Model,
     """Fit model with train and validation dataset, """
     mc = ModelCheckpoint(filepath=local_registry_path+'/training_checkpoints/ckpt_{epoch}',
                          save_weights_only=True)
-    es =  EarlyStopping(monitor='loss',
+    es =  EarlyStopping(monitor='val_loss',
                         patience=patience,
                         verbose=0,
                         restore_best_weights=True)
