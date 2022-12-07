@@ -31,15 +31,11 @@ TARGET_NAME = os.environ.get("TARGET_NAME")
 MV_TRAIN_DF = os.environ.get("MV_TRAIN_DF")
 MV_SEED_DF = os.environ.get("MV_SEED_DF")
 MV_VAL_DF = os.environ.get("MV_VAL_DF")
-
-if os.environ.get("COLUMNS")=='':
-    COLUMNS=['pitch', 'step']
-elif os.environ.get("COLUMNS")=='v':
-    COLUMNS=['pitch', 'step', 'velocity']
-elif os.environ.get("COLUMNS")=='d':
-    COLUMNS=['pitch', 'step', 'duration']
-else:
-    COLUMNS=['pitch', 'step', 'duration', 'velocity']
+COLUMNS = ['pitch','step']
+if 'd' in os.environ.get("COLUMNS"):
+    COLUMNS.append('duration')
+if 'v' in os.environ.get("COLUMNS"):
+    COLUMNS.append('velocity')
 
 
 

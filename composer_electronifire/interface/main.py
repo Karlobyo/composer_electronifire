@@ -131,12 +131,6 @@ def preprocess_mv_datasets():
 
 def run_mv_model_training():
 
-    # COLUMNS = ['pitch','step']
-    # if 'd' in COLUMNS:
-    #     COLUMNS.append('duration')
-    # if 'v' in COLUMNS:
-    #     COLUMNS.append('velocity')
-
     model = initialize_mv_model(seq_length=SEQ_LENGTH, cols=COLUMNS)
     model = compile_mv_model(model, cols=COLUMNS)
 
