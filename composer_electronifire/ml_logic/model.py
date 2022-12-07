@@ -5,7 +5,6 @@ from tensorflow.keras.models import Model, Sequential
 from tensorflow.keras.layers import LSTM, Dense, Dropout
 from tensorflow.keras.callbacks import EarlyStopping, ModelCheckpoint
 from tensorflow.keras.losses import SparseCategoricalCrossentropy
-
 import numpy as np
 import pandas as pd
 from typing import Tuple
@@ -75,14 +74,13 @@ def initialize_mv_model(seq_length: int,
 
     inputs = tf.keras.Input(input_shape)
     model = LSTM(512, return_sequences=True)(inputs)
-
     model = Dropout(0.1)(model)
-    model = LSTM(256)(model)
+    model = LSTM(256, return_sequences=True)(model)
+    model = Dropout(0.2)(model)
+    model = LSTM(128)(model)
     model = Dropout(0.3)(model)
     model = Dense(64)(model)
     model = Dropout(0.4)(model)
-    model = Dense(32)(model)
-    model = Dropout(0.5)(model)
     outputs = {'pitch': Dense(88, name='pitch', activation='softmax')(model)}
     for col in cols[1:]:
         outputs[col] = Dense(1, name=col)(model)
@@ -170,7 +168,9 @@ def predict_notes(
     
     array = np.zeros(len(cols))
     array[0]=21
-    input_notes = (np.stack([notes[key] for key in cols], axis=1) - array)[-seq_length:]
+    index = np.random.randint(len(notes)-seq_length)
+    chunk = notes.iloc[index:index+seq_length]
+    input_notes = np.stack([chunk[key] for key in cols], axis=1) - array
     generated_notes = []
     prev_start = 0
     for _ in range(num_predictions):

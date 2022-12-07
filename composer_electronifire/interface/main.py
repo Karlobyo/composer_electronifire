@@ -179,13 +179,14 @@ def predict_mv_model(notes_path: str=os.path.join(LOCAL_DATA_PATH,MV_SEED_DF)+'.
     else:
         return print("Select input - 'notes' or 'path' !")
 
-    gen_df = predict_notes(notes=notes,
+    gen_df = predict_notes(notes=notes, 
                            model=model,
                            num_predictions=NUM_PREDICTIONS,
                            seq_length=SEQ_LENGTH,
                            cols=COLUMNS
                            )
-    gen_midi = notes_to_midi(gen_df)
+    gen_midi = notes_to_midi(gen_df, 
+                             cols=COLUMNS)
     save_midi(midi=gen_midi, local_registry_path=LOCAL_REGISTRY_PATH)
     print("\nSaved predicted midi")
     return None
