@@ -131,26 +131,26 @@ def preprocess_mv_datasets():
 
 def run_mv_model_training():
 
-    columns = ['pitch','step']
-    if 'd' in COLUMNS:
-        columns.append('duration')
-    if 'v' in COLUMNS:
-        columns.append('velocity')
+    # COLUMNS = ['pitch','step']
+    # if 'd' in COLUMNS:
+    #     COLUMNS.append('duration')
+    # if 'v' in COLUMNS:
+    #     COLUMNS.append('velocity')
 
-    model = initialize_mv_model(seq_length=SEQ_LENGTH, cols=columns)
-    model = compile_mv_model(model, cols=columns)
+    model = initialize_mv_model(seq_length=SEQ_LENGTH, cols=COLUMNS)
+    model = compile_mv_model(model, cols=COLUMNS)
 
     train_df = pd.read_csv(os.path.join(LOCAL_DATA_PATH, COMPOSER, MV_TRAIN_DF)+'.csv')
     val_df = pd.read_csv(os.path.join(LOCAL_DATA_PATH, COMPOSER, MV_VAL_DF)+'.csv')
     seed_df = pd.read_csv(os.path.join(LOCAL_DATA_PATH, COMPOSER, MV_SEED_DF)+'.csv')
 
-    train_ds = df_to_dataset(train_df, cols=columns)
-    val_ds = df_to_dataset(val_df, cols=columns)
-    seed_ds = df_to_dataset(seed_df, cols=columns)
+    train_ds = df_to_dataset(train_df, cols=COLUMNS)
+    val_ds = df_to_dataset(val_df, cols=COLUMNS)
+    seed_ds = df_to_dataset(seed_df, cols=COLUMNS)
 
-    train_seq = create_sequences(train_ds, seq_length=SEQ_LENGTH, cols=columns, shift=SHIFT)
-    val_seq = create_sequences(val_ds, seq_length=SEQ_LENGTH, cols=columns, shift=SHIFT)
-    seed_seq = create_sequences(seed_ds, seq_length=SEQ_LENGTH, cols=columns, shift=SHIFT)
+    train_seq = create_sequences(train_ds, seq_length=SEQ_LENGTH, cols=COLUMNS, shift=SHIFT)
+    val_seq = create_sequences(val_ds, seq_length=SEQ_LENGTH, cols=COLUMNS, shift=SHIFT)
+    seed_seq = create_sequences(seed_ds, seq_length=SEQ_LENGTH, cols=COLUMNS, shift=SHIFT)
 
     train_ds = create_batches(train_seq, batch_size=BATCH_SIZE)
     val_ds = create_batches(val_seq, batch_size=BATCH_SIZE)
@@ -202,19 +202,19 @@ def predict_mv_model(notes_path: str=os.path.join(LOCAL_DATA_PATH, COMPOSER, MV_
     else:
         return print("Select input - 'notes' or 'path' !")
 
-    columns = ['pitch','step']
-    if 'd' in COLUMNS:
-        columns.append('duration')
-    if 'v' in COLUMNS:
-        columns.append('velocity')
+    # COLUMNS = ['pitch','step']
+    # if 'd' in COLUMNS:
+    #     COLUMNS.append('duration')
+    # if 'v' in COLUMNS:
+    #     COLUMNS.append('velocity')
 
     gen_df = predict_notes(notes=notes,
                            model=model,
                            num_predictions=NUM_PREDICTIONS,
                            seq_length=SEQ_LENGTH,
-                           cols=columns
+                           cols=COLUMNS
                            )
-    gen_midi = notes_to_midi(gen_df, cols=columns)
+    gen_midi = notes_to_midi(gen_df, cols=COLUMNS)
 
     save_midi(midi=gen_midi,
               composer=COMPOSER,
