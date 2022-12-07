@@ -1,0 +1,1 @@
+{"batch_Size": "128", "epochs": "5", "patience": "20", "seq_length": "40", "shift": "20", "callbacks": "ModelCheckpoint and EarlyStopping\" # \"ModelCheckpoint and EarlyStopping\" or \"EarlyStopping\" or \"ModelCheckpoint", "collumns": ["pitch", "step", "duration", "velocity"]}
