@@ -202,23 +202,20 @@ def predict_mv_model(notes_path: str=os.path.join(LOCAL_DATA_PATH, COMPOSER, MV_
     else:
         return print("Select input - 'notes' or 'path' !")
 
-    # COLUMNS = ['pitch','step']
-    # if 'd' in COLUMNS:
-    #     COLUMNS.append('duration')
-    # if 'v' in COLUMNS:
-    #     COLUMNS.append('velocity')
 
-    gen_df = predict_notes(notes=notes,
+    gen_df = predict_notes(notes=notes, 
                            model=model,
                            num_predictions=NUM_PREDICTIONS,
                            seq_length=SEQ_LENGTH,
                            cols=COLUMNS
                            )
+
     gen_midi = notes_to_midi(gen_df, cols=COLUMNS)
 
     save_midi(midi=gen_midi,
               composer=COMPOSER,
               local_registry_path=LOCAL_REGISTRY_PATH)
+
     print("\nSaved predicted midi")
     return None
 
