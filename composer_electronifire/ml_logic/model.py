@@ -105,14 +105,23 @@ def compile_mv_model(model: Model,
         metrics[col] = 'mse'
 
 
-    loss = {'pitch': tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True)}
-
+    loss = {'pitch': tf.keras.losses.SparseCategoricalCrossentropy()}
+    
     for col in cols[1:]:
         loss[col] = mse_with_positive_pressure
-
+    
+        
+    loss_weights={'step' : 1, 'pitch' : 0.05}
+    if 'duration' in cols:
+        loss_weights['duration'] = 1
+    if 'velocity' in cols:
+        loss_weights['velocity'] = 0.0002
+    
+    
     model.compile(loss=loss,
                   optimizer='rmsprop',
-                  metrics=metrics
+                  metrics=metrics,
+                  loss_weights=loss_weights
                   )
     return model
 
