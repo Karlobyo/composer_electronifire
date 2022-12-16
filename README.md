@@ -1,5 +1,5 @@
 # composer_electronifire
-Electronify the big maestros from the past...
+Electronifire the big maestros from the past...
 
 make commands of package:
 
