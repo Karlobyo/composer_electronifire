@@ -6,7 +6,6 @@ import base64
 import time
 import os
 import requests
-import fluidsynth
 import wavfile
 import pretty_midi
 import io
@@ -60,19 +59,19 @@ st.write(f'<style>{CSS}</style>', unsafe_allow_html=True)
 
 st.title(':collision: Composer Electronifire :collision:')
 
-st.markdown('Please select an MC:')
+st.markdown('Please select a composer:')
 
 
-if st.checkbox('Johann Sebastian Bach',value=False,args=st.image('bach.jpeg',width=100)):
+if st.checkbox('Johann Sebastian Bach',value=False,args=st.image('images/bach.jpeg',width=100)):
      st.write('Good choice, but how about Chopin?')
 
-if st.checkbox('Franz Schubert',value=False,args=st.image('schubert.jpeg',width=100)):
+if st.checkbox('Franz Schubert',value=False,args=st.image('images/schubert.jpeg',width=100)):
      st.write('Good choice, but how about Chopin?')
 
-if st.checkbox('Frédéric Chopin',value=False,args=st.image('Freddy.jpeg',width=100)):
-     if (st.button('Generate a new tune',on_click=callback) or st.session_state.button_clicked):
-         add_bg_from_local('discoball2.jpg')
-         """1st API call here to generate a new tune"""
+if st.checkbox('Frédéric Chopin',value=False,args=st.image('images/Freddy.jpeg',width=100)):
+     if (st.button('Choose a tune',on_click=callback) or st.session_state.button_clicked):
+         add_bg_from_local('images/discoball2.jpg')
+         """Choose a tune"""
 
          with open("test_tune1.mid", "rb") as file:
             btn = st.download_button(
@@ -81,7 +80,7 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('Freddy.jpeg',width
             file_name="test_tune1.mid",
             mime="mid/mid"
           )
-            add_bg_from_local('discoball2.jpg')
+            add_bg_from_local('images/discoball2.jpg')
 
          st.multiselect(label='Choose a beat to electroni-🔥 your tune.',options=['bebop','funk','hardcore techno'], on_change = None,key=1)
          #on_change will call the second API with the argument that is chosen by user
@@ -95,5 +94,5 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('Freddy.jpeg',width
             mime="mid/mid")
 
 
-if st.checkbox('Claude Debussy',value=False,args=st.image('debussy.jpeg',width=100)):
+if st.checkbox('Claude Debussy',value=False,args=st.image('images/debussy.jpeg',width=100)):
      st.write('Good choice, but how about Chopin?')
