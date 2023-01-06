@@ -52,7 +52,7 @@ h1 {
 h2 {color: black;
 }
 .stApp {
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/0/04/Chateau_de_Versailles_1668_Pierre_Patel.jpg/1920px-Chateau_de_Versailles_1668_Pierre_Patel.jpg);
+    background-image: url(https://cdn.pixabay.com/photo/2013/12/25/18/15/piano-233715_1280.jpg);
     background-size: cover;
 """
 st.write(f'<style>{CSS}</style>', unsafe_allow_html=True)
@@ -69,29 +69,39 @@ if st.checkbox('Franz Schubert',value=False,args=st.image('images/schubert.jpeg'
      st.write('Good choice, but how about Chopin?')
 
 if st.checkbox('Frédéric Chopin',value=False,args=st.image('images/Freddy.jpeg',width=100)):
-     if (st.button('Choose a tune',on_click=callback) or st.session_state.button_clicked):
-         add_bg_from_local('images/discoball2.jpg')
-         """Choose a tune"""
+    if (st.button('Generate new music',on_click=callback) or st.session_state.button_clicked):
 
-         with open("test_tune1.mid", "rb") as file:
+        audio_file = open('../composer_music/chopin_1.wav', 'rb')
+        audio_bytes = audio_file.read()
+        st.audio(audio_bytes, format='audio/wav')
+
+        with open('../composer_music/chopin_1.wav', "rb") as file:
             btn = st.download_button(
-            label="Download tune",
+            label="Download Composer music",
             data=file,
-            file_name="test_tune1.mid",
-            mime="mid/mid"
-          )
-            add_bg_from_local('images/discoball2.jpg')
+            file_name="chopin_1.wav",
+            mime="wav/wav"
+            )
 
-         st.multiselect(label='Choose a beat to electroni-🔥 your tune.',options=['bebop','funk','hardcore techno'], on_change = None,key=1)
-         #on_change will call the second API with the argument that is chosen by user
-         """2nd API call here to generate tune with beat"""
+        if  st.button('Electroni-🔥',on_click=callback):
+            ElecMusic = ['../chopin_1_TRIPHOP.wav', '../chopin_1_TECHNO.wav']
 
-         with open("test_tune2.mid", "rb") as file:
-            btn = st.download_button(
-            label="Download tune",
-            data=file,
-            file_name="test_tune2.mid",
-            mime="mid/mid")
+            selec_audios = st.multiselect(label='Choose a beat to electroni-🔥 your tune',options=ElecMusic, on_change = None,key=1)
+            #on_change will call the second API with the argument that is chosen by user
+
+            for audio in selec_audios:
+                audio_file = open(audio, 'rb')
+                audio_bytes = audio_file.read()
+                st.audio(audio_bytes, format='audio/wav')
+
+                add_bg_from_local('images/CompElecPic.png')
+
+            with open("../electronifired_music/chopin_1_TRIPHOP.wav", "rb") as file:
+                btn = st.download_button(
+                label="Download Composer Electronifire music",
+                data=file,
+                file_name="chopin_1_TRIPHOP.wav",
+                mime="wav/wav")
 
 
 if st.checkbox('Claude Debussy',value=False,args=st.image('images/debussy.jpeg',width=100)):
