@@ -84,24 +84,49 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('images/Freddy.jpeg
             )
 
         if  st.button('Electroni-🔥',on_click=callback):
-            ElecMusic = ['../chopin_1_TRIPHOP.wav', '../chopin_1_TECHNO.wav']
 
-            selec_audios = st.multiselect(label='Choose a beat to electroni-🔥 your tune',options=ElecMusic, on_change = None,key=1)
+            Trip-hop == '../electronifired_music/chopin_1_TRIPHOP.wav'
+            Techno == '../electronifired_music/chopin_1_TECHNO.wav'
+            ElecMusic = ['Trip-hop', 'Techno']
+
+            selec_options = st.multiselect(label='Choose a beat to electroni-🔥 your tune',options=ElecMusic, on_change = None,key=1)
             #on_change will call the second API with the argument that is chosen by user
 
-            for audio in selec_audios:
-                audio_file = open(audio, 'rb')
-                audio_bytes = audio_file.read()
-                st.audio(audio_bytes, format='audio/wav')
 
-                add_bg_from_local('images/CompElecPic.png')
+            if selec_options:
+                for option in selec_options:
+                    if option == 'Trip-hop':
+                        file_path = '../electronifired_music/chopin_1_TRIPHOP.wav'
+                        audio_file = open(file_path, 'rb')
+                        audio_bytes = audio_file.read()
+                        st.audio(audio_bytes, format='audio/wav')
 
-            with open("../electronifired_music/chopin_1_TRIPHOP.wav", "rb") as file:
-                btn = st.download_button(
-                label="Download Composer Electronifire music",
-                data=file,
-                file_name="chopin_1_TRIPHOP.wav",
-                mime="wav/wav")
+                        with open(file_path, "rb") as file:
+                            btn = st.download_button(
+                            label="Download Electronifired music",
+                            data=file,
+                            file_name= f"chopin_1_{option}.wav",
+                            mime="wav/wav"
+                            )
+                    elif option == 'Techno':
+                        file_path = '../electronifired_music/chopin_1_TECHNO.wav'
+                        audio_file = open(file_path, 'rb')
+                        audio_bytes = audio_file.read()
+                        st.audio(audio_bytes, format='audio/wav')
+
+                        with open(file_path, "rb") as file:
+                            btn = st.download_button(
+                            label="Download Electronifired music",
+                            data=file,
+                            file_name= f"chopin_1_{option}.wav",
+                            mime="wav/wav"
+                            )
+
+
+
+
+                    add_bg_from_local('images/discoball2.jpg')
+
 
 
 if st.checkbox('Claude Debussy',value=False,args=st.image('images/debussy.jpeg',width=100)):
