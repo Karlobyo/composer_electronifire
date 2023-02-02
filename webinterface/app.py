@@ -1,6 +1,6 @@
 #from fastapi import FastAPI
 import streamlit as st
-#i#mport numpy as np
+#import numpy as np
 #from PIL import Image
 import base64
 #import time

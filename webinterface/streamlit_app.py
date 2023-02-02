@@ -62,7 +62,7 @@ st.title('Composer Electronifire')
 st.markdown('Please select a composer:')
 
 
-bach_img = Image.open('bach.jpeg')
+bach_img = Image.open('images/bach.jpeg')
 
 if st.checkbox('Johann Sebastian Bach',value=False,args=st.image(bach_img, width=100)):
      st.write('Good choice, but how about Chopin?')
