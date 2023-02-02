@@ -85,6 +85,8 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('webinterface/image
 
         if  st.button('Electroni-🔥',on_click=callback):
 
+            add_bg_from_local('webinterface/images/discoball2.jpg')
+
             audio_file = open('electronifired_music/chopin_1_TRIPHOP.wav', 'rb')
             audio_bytes = audio_file.read()
             st.audio(audio_bytes, format='audio/wav')
@@ -98,7 +100,6 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('webinterface/image
                 )
 
 
-            add_bg_from_local('webinterface/images/discoball2.jpg')
 
 
 
