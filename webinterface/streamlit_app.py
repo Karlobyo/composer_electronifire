@@ -62,15 +62,13 @@ st.title('Composer Electronifire')
 st.markdown('Please select a composer:')
 
 
-# bach_img = Image.open('images/bach.jpeg')
-
 if st.checkbox('Johann Sebastian Bach',value=False,args=st.image('webinterface/images/bach.jpeg', width=100)):
      st.write('Good choice, but how about Chopin?')
 
-if st.checkbox('Franz Schubert',value=False,args=st.image('images/schubert.jpeg',width=100)):
+if st.checkbox('Franz Schubert',value=False,args=st.image('webinterface/images/schubert.jpeg',width=100)):
      st.write('Good choice, but how about Chopin?')
 
-if st.checkbox('Frédéric Chopin',value=False,args=st.image('images/Freddy.jpeg',width=100)):
+if st.checkbox('Frédéric Chopin',value=False,args=st.image('webinterface/images/Freddy.jpeg',width=100)):
     if (st.button('Generate new music',on_click=callback) or st.session_state.button_clicked):
 
         audio_file = open('../composer_music/chopin_1.wav', 'rb')
@@ -140,5 +138,5 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('images/Freddy.jpeg
 
 
 
-if st.checkbox('Claude Debussy',value=False,args=st.image('images/debussy.jpeg',width=100)):
+if st.checkbox('Claude Debussy',value=False,args=st.image('webinterface/images/debussy.jpeg',width=100)):
      st.write('Good choice, but how about Chopin?')
