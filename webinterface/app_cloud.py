@@ -71,11 +71,11 @@ if st.checkbox('Franz Schubert',value=False,args=st.image('webinterface/images/s
 if st.checkbox('Frédéric Chopin',value=False,args=st.image('webinterface/images/Freddy.jpeg',width=100)):
     if (st.button('Generate new music',on_click=callback) or st.session_state.button_clicked):
 
-        audio_file = open('../composer_music/chopin_1.wav', 'rb')
+        audio_file = open('composer_music/chopin_1.wav', 'rb')
         audio_bytes = audio_file.read()
         st.audio(audio_bytes, format='audio/wav')
 
-        with open('../composer_music/chopin_1.wav', "rb") as file:
+        with open('composer_music/chopin_1.wav', "rb") as file:
             btn = st.download_button(
             label="Download Composer music",
             data=file,
@@ -85,11 +85,11 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('webinterface/image
 
         if  st.button('Electroni-🔥',on_click=callback):
 
-            audio_file = open('../electronifired_music/chopin_1_TRIPHOP.wav', 'rb')
+            audio_file = open('electronifired_music/chopin_1_TRIPHOP.wav', 'rb')
             audio_bytes = audio_file.read()
             st.audio(audio_bytes, format='audio/wav')
 
-            with open('../electronifired_music/chopin_1_TRIPHOP.wav', "rb") as file:
+            with open('electronifired_music/chopin_1_TRIPHOP.wav', "rb") as file:
                 btn = st.download_button(
                 label="Download Electronifired music",
                 data=file,
@@ -98,7 +98,7 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('webinterface/image
                 )
 
 
-            add_bg_from_local('images/discoball2.jpg')
+            add_bg_from_local('webinterface/images/discoball2.jpg')
 
 
 
