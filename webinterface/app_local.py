@@ -98,7 +98,7 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('images/Freddy.jpeg
                 )
 
 
-            add_bg_from_local('images/discoball2.jpg')
+            add_bg_from_local('images/Electronifire_pic.jpg')
 
 
 
