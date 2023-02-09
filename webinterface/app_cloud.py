@@ -65,9 +65,24 @@ st.markdown("")
 
 st.markdown("")
 
-st.markdown("Have you ever asked yourself...How would that great composer from the past sound like, if he would be alive nowadays?")
+st.image('webinterface/images/question_pic.png',width=50)
 
-st.markdown("It's impossible to say exactly how a composer from the past would sound like if they were alive today. Their musical style would likely be influenced by the current trends and techniques of their time, as well as their own personal experiences and tastes. Additionally, it's worth considering that the tools and technology available for making music have changed dramatically since the composer's time, so their approach to composition might be quite different as well. Ultimately, it's a hypothetical question that can't be answered with certainty, but it's certainly an interesting thought experiment!")
+st.markdown("Have you ever asked yourself...")
+st.markdown("How would that great composer from the past sound like, if he/she would be alive?")
+
+st.image('webinterface/images/question_man.png',width=50)
+
+
+st.markdown("")
+
+st.markdown('The opinion of ChatGPT:')
+st.markdown("It's impossible to say exactly how a composer from the past would sound like if they were alive today. Their musical style would likely be influenced by the current trends, as well as their own personal experiences. Additionally, it's worth considering that the tools and technology available for making music have changed dramatically since the composer's time, so their approach to composition might be quite different as well. Ultimately, it's a hypothetical question that can't be answered with certainty, but it's certainly an interesting experiment!")
+
+st.markdown("")
+
+st.markdown("Enjoy!")
+
+st.markdown("")
 
 st.markdown('Please select a composer:')
 
