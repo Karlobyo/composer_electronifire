@@ -82,6 +82,8 @@ st.markdown("")
 
 st.markdown("Enjoy!")
 
+st.markdown("Demo version: only Chopin available at the moment")
+
 st.markdown("")
 
 st.markdown('Please select a composer:')
