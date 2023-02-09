@@ -59,6 +59,12 @@ st.write(f'<style>{CSS}</style>', unsafe_allow_html=True)
 
 st.title('Composer Electronifire')
 
+st.markdown('## Electronifire the big maestros from the past...')
+
+st.markdown("How would that great composer from the past sound like, if he would be alive nowadays?")
+
+st.markdown("It's impossible to say exactly how a composer from the past would sound like if they were alive today. Their musical style would likely be influenced by the current trends and techniques of their time, as well as their own personal experiences and tastes. Additionally, it's worth considering that the tools and technology available for making music have changed dramatically since the composer's time, so their approach to composition might be quite different as well. Ultimately, it's a hypothetical question that can't be answered with certainty, but it's certainly an interesting thought experiment!")
+
 st.markdown('Please select a composer:')
 
 
@@ -83,7 +89,7 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('webinterface/image
             mime="wav/wav"
             )
 
-        if  st.button('Electroni-🔥',on_click=callback):
+        if  st.button('Electroni🔥',on_click=callback):
 
             add_bg_from_local('webinterface/images/Electronifire_pic.jpg')
 
