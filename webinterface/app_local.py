@@ -96,7 +96,7 @@ if st.checkbox('Frédéric Chopin',value=False,args=st.image('images/Freddy.jpeg
             mime="wav/wav"
             )
 
-        if  st.button('Electroni-🔥',on_click=callback):
+        if  st.button('Electroni🔥',on_click=callback):
 
             audio_file = open('../electronifired_music/chopin_1_TRIPHOP.wav', 'rb')
             audio_bytes = audio_file.read()
