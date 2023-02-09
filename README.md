@@ -5,9 +5,9 @@
 
 Descripition and purpose:
 
-This is an app to generate new piano music based on midi datasets from specific classical composers. In a second step the app would automatically generate and apply an electronic beat on the newly generated piano music (this second step is still a work in progress though, manual at the moment...). 
+This is an app to generate new piano music based on midi datasets from specific classical composers. In a second step the app generates and applies an electronic beat on the newly generated piano music. 
 
-It is thought as a source of creative enrichment and inspiration for musicians and music producers and an attempt to answer to all the people who always wondered: 'How would that great composer from the past sound like, if he would be alive nowadays?'
+It is thought as a source of creative enrichment and inspiration for musicians and music producers and an attempt to answer to all the people who always wondered: 'How would that great composer from the past sound like, if he/she would be alive?'
 
 ***
 
@@ -16,11 +16,20 @@ Installation of app locally:
 Clone the repository and install the requirements listed in the requirements.txt file.
 From your terminal go to the 'webinterace' folder containing the 'app_local.py' file and then run 'streamlit run app_local.py'
 
-Tadaaa, that's it! You can click on a composer (only Chopin available at the moment), generate new piano music and even listen to an electronifired demo sample
+Tadaaa, that's it! You can click on a composer (only Chopin available at the moment), generate new piano music and even listen to an electronifired demo sample.
 
 Public version:
 
 https://karlobyo-composer-electronifire-webinterfaceapp-cloud-4l4hu6.streamlit.app/
+
+***
+
+Technical specifications:
+
+The app is based on a deep-learning recurrent neural network fed with midi datasets. The model is trained on the midi files from the specific composer and then generates new midi files trying to resemble the characteristics (pitch, duration, velocity (intensity)) of the ones on which it was trained on.
+
+While the 'Composer' sample displayed on the app was directly generated with this model, the 'Electronifired' sample was generated and applied manually.
+In the future we would like to implement also this step in an automated fashion.
 
 ***
 
