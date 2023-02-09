@@ -82,7 +82,7 @@ st.markdown("")
 
 st.markdown("Enjoy!")
 
-st.markdown("Demo version: only Chopin available at the moment")
+st.markdown("(Demo version: only Chopin available at the moment)")
 
 st.markdown("")
 
