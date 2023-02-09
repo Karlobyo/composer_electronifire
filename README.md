@@ -11,12 +11,16 @@ It is thought as a source of creative enrichment and inspiration for musicians a
 
 ***
 
-Installation:
+Installation of app locally:
 
 Clone the repository and install the requirements listed in the requirements.txt file.
 From your terminal go to the 'webinterace' folder containing the 'app_local.py' file and then run 'streamlit run app_local.py'
 
-Tadaaa, that's it! You can click on a composer (only Chopin available at the moment), generate new piano music and even listen to some electronifired demo samples
+Tadaaa, that's it! You can click on a composer (only Chopin available at the moment), generate new piano music and even listen to an electronifired demo sample
+
+Public version:
+
+https://karlobyo-composer-electronifire-webinterfaceapp-cloud-4l4hu6.streamlit.app/
 
 ***
 
