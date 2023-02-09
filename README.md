@@ -1,11 +1,11 @@
 # Composer Electronifire
-Electronifire the big maestros from the past...
+*Electronifire the big maestros from the past...*
 
 ***
 
 Descripition and purpose:
 
-This is an app to generate new piano music based on midi datasets from specific classical composers. In a second step the app would automatically generate and apply an electronic beat on the newly generated piano music (this second step is still a work in progress though, manual at the moment...). 
+This is an app to generate new piano music based on midi datasets from specific classical composers. In a second step the app would automatically generate and apply an electronic beat on the newly generated piano music (this second step is still a work in progress though, manual at the moment...).
 
 It is thought as a source of creative enrichment and inspiration for musicians and music producers and an attempt to answer to all the people who always wondered: 'How would that great composer from the past sound like, if he would be alive nowadays?'
 
