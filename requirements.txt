@@ -6,12 +6,8 @@ Ipython
 music21
 colorama
 
-# Trick to install the version of Tensorflow depending on your processor: darwin == Mac, ARM == M1
-tensorflow-macos==2.10.0; sys_platform == 'darwin' and 'ARM' in platform_version # Mac M-chips
-tensorflow==2.10.0; sys_platform == 'darwin' and 'ARM' not in platform_version # Mac Intel chips
-tensorflow==2.10.0; sys_platform != 'darwin' # Windows & Ubuntu Intel chips
+tensorflow
 
-# prevent bq 3+ db-dtypes package error when running training from bq
 google-cloud-bigquery<3.0.0
 google-cloud-storage
 pyarrow
@@ -29,9 +25,5 @@ scipy
 soundfile
 requires.io
 wavfile
-#pyfluidsynth
-#fluidsynth
-#midi2audio
-#pygame
 uvicorn
 fastapi

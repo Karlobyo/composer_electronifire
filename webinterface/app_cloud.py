@@ -1,14 +1,7 @@
-#from fastapi import FastAPI
 import streamlit as st
-#import numpy as np
 from PIL import Image
 import base64
-#import time
-#import os
-#import requests
-#import wavfile
-#import pretty_midi
-#import io
+
 
 
 if 'button_clicked' not in st.session_state:
@@ -34,14 +27,6 @@ def add_bg_from_local(image_file):
 
 
 
-# app = FastAPI()
-
-# # Define a root `/` endpoint
-# @app.get('/')
-# def index():
-#     return {'ok': True}
-
-# @app.get('/electronify')
 
 st.set_page_config(layout='wide')
 

@@ -7,15 +7,6 @@ from mido import MidiFile, open_output
 
 
 
-# app = FastAPI()
-
-# # Define a root `/` endpoint
-# @app.get('/')
-# def index():
-#     return {'ok': True}
-
-# @app.get('/electronify')
-
 st.set_page_config(layout='wide')
 
 CSS = """
