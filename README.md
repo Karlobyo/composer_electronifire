@@ -18,7 +18,7 @@ From your terminal go to the 'webinterace' folder containing the 'app_local.py' 
 
 Tadaaa, that's it! You can click on a composer (only Chopin available at the moment), generate new piano music and even listen to an electronifired demo sample.
 
-Public version:
+Public link:
 
 https://karlobyo-composer-electronifire-webinterfaceapp-cloud-4l4hu6.streamlit.app/
 
