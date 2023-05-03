@@ -22,6 +22,8 @@ Public link:
 
 https://karlobyo-composer-electronifire-webinterfaceapp-cloud-4l4hu6.streamlit.app/
 
+! If the markdowns look grey and are hard to read you can set the theme to "Dark" in the drop-down menu on the top-right corner !
+
 ***
 
 Technical specifications:
