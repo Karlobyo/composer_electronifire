@@ -22,7 +22,7 @@ Public link:
 
 https://karlobyo-composer-electronifire-webinterfaceapp-cloud-4l4hu6.streamlit.app/
 
-! If the markdowns look grey and are hard to read (if you are wusing Windows for example) you can set the theme to "Dark" in the drop-down menu on the top-right corner under "Settings" !
+! If the markdowns look grey and are hard to read, it means you have the theme set to 'Light'. You can set the theme to "Dark" in the drop-down menu on the top-right corner under "Settings" !
 
 ***
 
